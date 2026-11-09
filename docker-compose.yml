@@ -9,3 +9,8 @@ services:
     container_name: ubuntu
     restart: unless-stopped
     command: "sleep infinity"
+  fedora:
+    image: geerlingguy/docker-fedora39-ansible:latest
+    container_name: fedora
+    restart: unless-stopped
+    command: "sleep infinity"

@@ -14,3 +14,8 @@
       localhost:
         ansible_connection: local
         ansible_python_interpreter: /usr/bin/python3
+  fedora:
+    hosts:
+      fedora:
+        ansible_connection: docker
+        ansible_python_interpreter: /usr/bin/python3
