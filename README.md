@@ -301,7 +301,7 @@ ansible-vault encrypt_string 'PaSSw0rd' --name 'some_fact'
 ansible-playbook -i inventory/prod.yml site.yml --ask-vault-pass
 ```
 
-Пароль — `netology`. Значение `PaSSw0rd` применилось к `localhost` (группа `local`) и `fedora-01` (группа `fedora`), у которых нет своих переопределённых `some_fact` в `group_vars`. Для `centos7`/`ubuntu` продолжают действовать `el default fact` / `deb default fact`.
+Пароль — `netology`. Значение `PaSSw0rd` применилось к `localhost` (группа `local`), у которой нет своих переопределённых `some_fact` в `group_vars`. Для `centos7`/`ubuntu` продолжают действовать `el default fact` / `deb default fact`.
 
 ![Alt text](images/24.jpg)
 
