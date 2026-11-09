@@ -81,47 +81,69 @@ ok: [localhost] => {
 
 ### 3. Воспользуйтесь подготовленным (используется `docker`) или создайте собственное окружение для проведения дальнейших испытаний.
 
-Создаем образы Docker:
+Для испытаний подготовлены Docker-контейнеры. Поскольку CentOS 7 — EOL, использован собственный образ с Python 3.8 (совместим с Ansible из Debian 13); `ubuntu` — из готового образа `geerlingguy/docker-ubuntu2004-ansible`.
 
-```
-docker build -t centos7-python311 .
+`Dockerfile.centos7`:
+
+```dockerfile
+FROM centos:7
+
+# Переключаем репозитории на vault.centos.org (CentOS 7 EOL)
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*.repo && \
+    sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*.repo
+
+# Ставим SCL и Python 3.8
+RUN yum install -y centos-release-scl && \
+    sed -i 's/mirror.centos.org/vault.centos.org/g' /etc/yum.repos.d/*.repo && \
+    sed -i 's/^#.*baseurl=http/baseurl=http/g' /etc/yum.repos.d/*.repo && \
+    sed -i 's/^mirrorlist=http/#mirrorlist=http/g' /etc/yum.repos.d/*.repo && \
+    yum install -y rh-python38 && \
+    yum clean all
+
+# Делаем Python 3.8 интерпретатором по умолчанию для Ansible
+RUN ln -sf /opt/rh/rh-python38/root/usr/bin/python3.8 /usr/bin/python3
+
+CMD ["sleep", "infinity"]
 ```
 
-```
-docker build -t ubuntu-python311 .
-```
+`docker-compose.yml`:
 
-Dockerfile - ы в папках centos7, ubuntu22.04
-
-Создаем файл docker-compose.yml:
-
-```
+```yaml
 services:
-  centos:
+  centos7:
+    image: my-centos7-python38
     container_name: centos7
-    image: centos7-python311:latest
-    restart: on-failure
-    command: ["sleep", "infinity"]
+    restart: unless-stopped
+    command: "sleep infinity"
   ubuntu:
+    image: geerlingguy/docker-ubuntu2004-ansible
     container_name: ubuntu
-    image: ubuntu-python311:latest
-    restart: on-failure
-    command: ["sleep", "infinity"]
-```    
-
-Запускаем:
-
-```
-docker comppose up -d
+    restart: unless-stopped
+    command: "sleep infinity"
+  fedora:
+    image: geerlingguy/docker-fedora39-ansible:latest
+    container_name: fedora-01
+    restart: unless-stopped
+    command: "sleep infinity"
 ```
 
-![Alt text](images/4.jpg)
+Запуск и проверка:
 
-![Alt text](images/5.jpg)
+```bash
+docker compose up -d
+cd playbook
+ansible -i inventory/prod.yml all -m ping
+```
+
+Оба хоста (`centos7`, `ubuntu`) отвечают `pong`.
+
+![Alt text](images/6.jpg)
+
+![Alt text](images/7.jpg)
 
 ### 4. Проведите запуск playbook на окружении из `prod.yml`. Зафиксируйте полученные значения `some_fact` для каждого из `managed host`.
 
-![Alt text](images/6.jpg)
+
 
 ### 5. Добавьте факты в `group_vars` каждой из групп хостов так, чтобы для `some_fact` получились значения: для `deb` — `deb default fact`, для `el` — `el default fact`.
 ### 6.  Повторите запуск playbook на окружении `prod.yml`. Убедитесь, что выдаются корректные значения для всех хостов.
