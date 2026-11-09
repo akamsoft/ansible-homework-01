@@ -174,7 +174,16 @@ ok: [ubuntu]  => { "msg": "deb" }
 
 ### 6.  Повторите запуск playbook на окружении `prod.yml`. Убедитесь, что выдаются корректные значения для всех хостов.
 
-![Alt text](images/7.jpg)
+```bash
+ansible-playbook -i inventory/prod.yml site.yml
+```
+
+```
+ok: [centos7] => { "msg": "el default fact" }
+ok: [ubuntu]  => { "msg": "deb default fact" }
+```
+
+![Alt text](images/11.jpg)
 
 ### 7. При помощи `ansible-vault` зашифруйте факты в `group_vars/deb` и `group_vars/el` с паролем `netology`.
 
