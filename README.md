@@ -19,7 +19,7 @@
 
    Установленная версия `ansible-core` соответствует требованию (2.10+); фактический вывод — на скриншоте.
 
-   ![Версия Ansible](images/version.jpg)
+   ![Версия Ansible](images/1.jpg)
 
 2. Создан **публичный** репозиторий: `https://github.com/akamsoft/ansible-homework-01`.
 
