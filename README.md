@@ -240,7 +240,21 @@ ansible-inventory -i inventory/prod.yml --graph
 
 ### 11. Запустите playbook на окружении `prod.yml`. При запуске `ansible` должен запросить у вас пароль. Убедитесь, что факты `some_fact` для каждого из хостов определены из верных `group_vars`.
 
-![Alt text](images/12.jpg)
+```bash
+ansible-playbook -i inventory/prod.yml site.yml --ask-vault-pass
+```
+
+Пароль — `netology`. Результат:
+
+| Хост | Группа | `some_fact` | Источник |
+|---|---|---|---|
+| `centos7` | `el` | `el default fact` | `group_vars/el/examp.yml` |
+| `ubuntu` | `deb` | `deb default fact` | `group_vars/deb/examp.yml` |
+| `localhost` | `local` | `all default fact` | `group_vars/all/examp.yml` |
+
+Для группы `local` своего `group_vars/local/` нет, поэтому применяется значение из `all`. Все факты определены из верных `group_vars`.
+
+![Alt text](images/20.jpg)
 
 ### 12. Заполните `README.md` ответами на вопросы. Сделайте `git push` в ветку `master`. В ответе отправьте ссылку на ваш открытый репозиторий с изменённым `playbook` и заполненным `README.md`.
 ### 13. Предоставьте скриншоты результатов запуска команд.
