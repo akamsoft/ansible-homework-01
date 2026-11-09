@@ -228,21 +228,7 @@ ansible-doc -t connection --list
 
 Итоговый `playbook/inventory/prod.yml`:
 
-```yaml
----
-  el:
-    hosts:
-      centos7:
-        ansible_connection: docker
-  deb:
-    hosts:
-      ubuntu:
-        ansible_connection: docker
-  local:
-    hosts:
-      localhost:
-        ansible_connection: local
-  ```
+![Alt text](images/18.jpg)
 
 Проверка:
 
@@ -250,18 +236,7 @@ ansible-doc -t connection --list
 ansible-inventory -i inventory/prod.yml --graph
 ```
 
-```
-@all:
-  |--@deb:
-  |  |--ubuntu
-  |--@el:
-  |  |--centos7
-  |--@local:
-  |  |--localhost
-  |--@ungrouped:
-```
-
-![Alt text](images/11.jpg)
+![Alt text](images/19.jpg)
 
 ### 11. Запустите playbook на окружении `prod.yml`. При запуске `ansible` должен запросить у вас пароль. Убедитесь, что факты `some_fact` для каждого из хостов определены из верных `group_vars`.
 
