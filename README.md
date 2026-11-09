@@ -187,11 +187,28 @@ ok: [ubuntu]  => { "msg": "deb default fact" }
 
 ### 7. При помощи `ansible-vault` зашифруйте факты в `group_vars/deb` и `group_vars/el` с паролем `netology`.
 
-![Alt text](images/8.jpg)
+Файлы `group_vars/deb/examp.yml` и `group_vars/el/examp.yml` зашифрованы с паролем `netology`:
+
+```bash
+ansible-vault encrypt playbook/group_vars/deb/examp.yml playbook/group_vars/el/examp.yml
+```
+
+![Alt text](images/12.jpg)
+
+Содержимое начинается с заголовка `$ANSIBLE_VAULT;1.1;AES256`, открытый текст `some_fact` в файлах отсутствует.
+
+![Alt text](images/13.jpg)
+![Alt text](images/14.jpg)
 
 ### 8. Запустите playbook на окружении `prod.yml`. При запуске `ansible` должен запросить у вас пароль. Убедитесь в работоспособности.
 
-![Alt text](images/9.jpg)
+```bash
+ansible-playbook -i inventory/prod.yml site.yml --ask-vault-pass
+```
+
+Ansible запрашивает пароль. После ввода `netology` значения снова расшифровываются и выводятся корректно.
+
+![Alt text](images/15.jpg)
 
 ### 9. Посмотрите при помощи `ansible-doc` список плагинов для подключения. Выберите подходящий для работы на `control node`.
 
