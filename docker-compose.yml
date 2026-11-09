@@ -1,0 +1,11 @@
+services:
+  centos7:
+    image: my-centos7-python38
+    container_name: centos7
+    restart: unless-stopped
+    command: "sleep infinity"
+  ubuntu:
+    image: geerlingguy/docker-ubuntu2004-ansible:latest
+    container_name: ubuntu
+    restart: unless-stopped
+    command: "sleep infinity"
