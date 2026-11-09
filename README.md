@@ -88,19 +88,22 @@ ok: [localhost] => {
 ```dockerfile
 FROM centos:7
 
-# Переключаем репозитории на vault.centos.org (CentOS 7 EOL)
+# 1. Переключаем стандартные репозитории на vault.centos.org (CentOS 7 EOL)
 RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*.repo && \
     sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*.repo
 
-# Ставим SCL и Python 3.8
+# 2. Устанавливаем SCL и Python 3.8
+# Сначала ставим только метапакет SCL
 RUN yum install -y centos-release-scl && \
+    # 3. Теперь исправляем ВСЕ файлы репозиториев, включая появившиеся SCL
     sed -i 's/mirror.centos.org/vault.centos.org/g' /etc/yum.repos.d/*.repo && \
     sed -i 's/^#.*baseurl=http/baseurl=http/g' /etc/yum.repos.d/*.repo && \
     sed -i 's/^mirrorlist=http/#mirrorlist=http/g' /etc/yum.repos.d/*.repo && \
+    # 4. Только после этого ставим Python 3.8
     yum install -y rh-python38 && \
     yum clean all
 
-# Делаем Python 3.8 интерпретатором по умолчанию для Ansible
+# 5. Делаем Python 3.8 интерпретатором по умолчанию для Ansible
 RUN ln -sf /opt/rh/rh-python38/root/usr/bin/python3.8 /usr/bin/python3
 
 CMD ["sleep", "infinity"]
@@ -120,12 +123,9 @@ services:
     container_name: ubuntu
     restart: unless-stopped
     command: "sleep infinity"
-  fedora:
-    image: geerlingguy/docker-fedora39-ansible:latest
-    container_name: fedora-01
-    restart: unless-stopped
-    command: "sleep infinity"
 ```
+
+![Alt text](images/6.jpg)
 
 Запуск и проверка:
 
@@ -136,8 +136,6 @@ ansible -i inventory/prod.yml all -m ping
 ```
 
 Оба хоста (`centos7`, `ubuntu`) отвечают `pong`.
-
-![Alt text](images/6.jpg)
 
 ![Alt text](images/7.jpg)
 
