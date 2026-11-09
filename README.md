@@ -55,7 +55,29 @@ ok: [localhost] => {
 
 2. Найдите файл с переменными (group_vars), в котором задаётся найденное в первом пункте значение, и поменяйте его на `all default fact`.
 
+Искомый файл — `playbook/group_vars/all/examp.yml`.
+
+Было:
+
+```yaml
+---
+  some_fact: 12
+```
+
+Стало:
+
+```yaml
+---
+  some_fact: "all default fact"
+```
+
 ![Alt text](images/3.jpg)
+
+![Alt text](images/4.jpg)
+
+После повторного запуска `ansible-playbook -i inventory/test.yml site.yml` задача `Print fact` выводит `"msg": "all default fact"`.
+
+![Alt text](images/5.jpg)
 
 3. Воспользуйтесь подготовленным (используется `docker`) или создайте собственное окружение для проведения дальнейших испытаний.
 
