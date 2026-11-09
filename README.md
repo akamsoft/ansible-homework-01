@@ -125,8 +125,6 @@ services:
     command: "sleep infinity"
 ```
 
-![Alt text](images/6.jpg)
-
 Запуск и проверка:
 
 ```bash
@@ -134,6 +132,8 @@ docker compose up -d
 cd playbook
 ansible -i inventory/prod.yml all -m ping
 ```
+
+![Alt text](images/6.jpg)
 
 Оба хоста (`centos7`, `ubuntu`) отвечают `pong`.
 
