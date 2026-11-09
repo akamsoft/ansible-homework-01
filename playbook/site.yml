@@ -8,3 +8,6 @@
       - name: Print fact
         debug:
           msg: "{{ some_fact }}"
+      - name: Print custom fact
+        debug:
+          msg: "{{ my_custom_fact | default('not set') }}"

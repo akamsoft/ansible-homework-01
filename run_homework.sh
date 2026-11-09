@@ -1,21 +1,24 @@
 #!/bin/bash
 set -e
 
-# Переход в директорию скрипта
 cd "$(dirname "$0")"
+
+cleanup() {
+    echo "=== Остановка и удаление контейнеров ==="
+    docker compose down
+}
+trap cleanup EXIT
 
 echo "=== Запуск контейнеров ==="
 docker compose up -d
-# Даем контейнерам немного времени на запуск
+
+echo "=== Ожидание готовности контейнеров ==="
 sleep 3
 
 echo "=== Запуск Ansible playbook ==="
 cd playbook
-# Пароль для vault можно передать через файл или запросить интерактивно
+# Приглашение Vault password: — введите netology и нажмите Enter.
+# Символы при вводе не отображаются, это нормально.
 ansible-playbook -i inventory/prod.yml site.yml --ask-vault-pass
-
-echo "=== Остановка и удаление контейнеров ==="
-cd ..
-docker compose down
 
 echo "=== Готово ==="
