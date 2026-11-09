@@ -164,6 +164,14 @@ ok: [ubuntu]  => { "msg": "deb" }
 ![Alt text](images/8.jpg)
 
 ### 5. Добавьте факты в `group_vars` каждой из групп хостов так, чтобы для `some_fact` получились значения: для `deb` — `deb default fact`, для `el` — `el default fact`.
+
+- `playbook/group_vars/el/examp.yml` → `some_fact: "el default fact"`
+- `playbook/group_vars/deb/examp.yml` → `some_fact: "deb default fact"`
+
+![Alt text](images/9.jpg)
+
+![Alt text](images/10.jpg)
+
 ### 6.  Повторите запуск playbook на окружении `prod.yml`. Убедитесь, что выдаются корректные значения для всех хостов.
 
 ![Alt text](images/7.jpg)
