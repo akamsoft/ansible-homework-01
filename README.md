@@ -277,7 +277,34 @@ ansible-vault decrypt playbook/group_vars/deb/examp.yml playbook/group_vars/el/e
 ![Alt text](images/21.jpg)
 
 ### 2. Зашифруйте отдельное значение `PaSSw0rd` для переменной `some_fact` паролем `netology`. Добавьте полученное значение в `group_vars/all/exmp.yml`.
+
+```bash
+ansible-vault encrypt_string 'PaSSw0rd' --name 'some_fact'
+```
+
+Пароль — `netology`. Полученный блок вида `some_fact: !vault |` вставлен в `playbook/group_vars/all/examp.yml` вместо `some_fact: "all default fact"`:
+
+```yaml
+---
+  some_fact: !vault |
+            $ANSIBLE_VAULT;1.1;AES256
+            ...
+```
+
+![Alt text](images/22.jpg)
+
+![Alt text](images/23.jpg)
+
 ### 3. Запустите `playbook`, убедитесь, что для нужных хостов применился новый `fact`.
+
+```bash
+ansible-playbook -i inventory/prod.yml site.yml --ask-vault-pass
+```
+
+Пароль — `netology`. Значение `PaSSw0rd` применилось к `localhost` (группа `local`) и `fedora-01` (группа `fedora`), у которых нет своих переопределённых `some_fact` в `group_vars`. Для `centos7`/`ubuntu` продолжают действовать `el default fact` / `deb default fact`.
+
+![Alt text](images/24.jpg)
+
 ### 4. Добавьте новую группу хостов `fedora`, самостоятельно придумайте для неё переменную. В качестве образа можно использовать [этот вариант](https://hub.docker.com/r/pycontribs/fedora).
 ### 5. Напишите скрипт на bash: автоматизируйте поднятие необходимых контейнеров, запуск ansible-playbook и остановку контейнеров.
 ### 6. Все изменения должны быть зафиксированы и отправлены в ваш личный репозиторий.
