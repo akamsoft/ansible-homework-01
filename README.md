@@ -354,9 +354,29 @@ chmod +x run_homework.sh
 
 ### 6. Все изменения должны быть зафиксированы и отправлены в ваш личный репозиторий.
 
----
+Все изменения закоммичены и отправлены в `main`.
 
-### Как оформить решение задания
+## Структура репозитория
 
-Приложите ссылку на ваше решение в поле «Ссылка на решение» и нажмите «Отправить решение»
+```
+ansible-homework-01/
+├── Dockerfile.centos7
+├── docker-compose.yml
+├── README.md
+├── run_homework.sh
+└── playbook/
+    ├── site.yml                    (Print OS / Print fact / Print custom fact)
+    ├── group_vars/
+    │   ├── all/examp.yml           (some_fact — зашифрован vault: PaSSw0rd)
+    │   ├── deb/examp.yml           (some_fact: "deb default fact")
+    │   ├── el/examp.yml            (some_fact: "el default fact")
+    │   └── fedora/examp.yml        (my_custom_fact: "value for fedora")
+    └── inventory/
+        ├── prod.yml                (el, deb, local, fedora)
+        └── test.yml                (inside → localhost)
+```
+
+## Ссылка на репозиторий
+
+**https://github.com/akamsoft/ansible-homework-01**
 ---
