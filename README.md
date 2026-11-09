@@ -306,6 +306,35 @@ ansible-playbook -i inventory/prod.yml site.yml --ask-vault-pass
 ![Alt text](images/24.jpg)
 
 ### 4. Добавьте новую группу хостов `fedora`, самостоятельно придумайте для неё переменную. В качестве образа можно использовать [этот вариант](https://hub.docker.com/r/pycontribs/fedora).
+
+Добавлена новая группа fedora в `inventory/prod.yml. Хост — `fedora-01`, тип подключения — `docker`.
+
+![Alt text](images/25.jpg)
+
+Файл docker-compose.yml
+
+![Alt text](images/26.jpg)
+
+Создан `playbook/group_vars/fedora/examp.yml`:
+
+```yaml
+---
+  my_custom_fact: "value for fedora"
+```
+![Alt text](images/27.jpg)
+
+Чтобы переменная была видна в выводе playbook, в `playbook/site.yml` добавлена задача:
+
+```yaml
+      - name: Print custom fact
+        debug:
+          msg: "{{ my_custom_fact | default('not set') }}"
+```
+
+Для `fedora-01` выводится `value for fedora`, для остальных хостов — `not set` (переменная не задана, срабатывает `default`).
+
+![Alt text](images/28.jpg)
+
 ### 5. Напишите скрипт на bash: автоматизируйте поднятие необходимых контейнеров, запуск ansible-playbook и остановку контейнеров.
 ### 6. Все изменения должны быть зафиксированы и отправлены в ваш личный репозиторий.
 
