@@ -257,11 +257,25 @@ ansible-playbook -i inventory/prod.yml site.yml --ask-vault-pass
 ![Alt text](images/20.jpg)
 
 ### 12. Заполните `README.md` ответами на вопросы. Сделайте `git push` в ветку `master`. В ответе отправьте ссылку на ваш открытый репозиторий с изменённым `playbook` и заполненным `README.md`.
+
+README.md заполнен (этот файл). Изменения отправлены в ветку `main`
+
 ### 13. Предоставьте скриншоты результатов запуска команд.
+
+Скриншоты предоставлены.
 
 ## Необязательная часть
 
 ### 1. При помощи `ansible-vault` расшифруйте все зашифрованные файлы с переменными.
+
+```bash
+ansible-vault decrypt playbook/group_vars/deb/examp.yml playbook/group_vars/el/examp.yml
+```
+
+Пароль — `netology`. Файлы возвращены в открытый вид.
+
+![Alt text](images/21.jpg)
+
 ### 2. Зашифруйте отдельное значение `PaSSw0rd` для переменной `some_fact` паролем `netology`. Добавьте полученное значение в `group_vars/all/exmp.yml`.
 ### 3. Запустите `playbook`, убедитесь, что для нужных хостов применился новый `fact`.
 ### 4. Добавьте новую группу хостов `fedora`, самостоятельно придумайте для неё переменную. В качестве образа можно использовать [этот вариант](https://hub.docker.com/r/pycontribs/fedora).
