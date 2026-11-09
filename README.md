@@ -141,7 +141,27 @@ ansible -i inventory/prod.yml all -m ping
 
 ### 4. Проведите запуск playbook на окружении из `prod.yml`. Зафиксируйте полученные значения `some_fact` для каждого из `managed host`.
 
+Команда:
 
+```bash
+ansible-playbook -i inventory/prod.yml site.yml
+```
+
+Вывод задачи `Print fact`:
+
+```
+ok: [centos7] => { "msg": "el" }
+ok: [ubuntu]  => { "msg": "deb" }
+```
+
+| Хост | Группа | `some_fact` | Источник |
+|---|---|---|---|
+| `centos7` | `el` | `el` | `group_vars/el/examp.yml` |
+| `ubuntu` | `deb` | `deb` | `group_vars/deb/examp.yml` |
+
+Переменные групп `el` и `deb` перекрывают `all default fact` — демонстрация приоритета групповых переменных над `all`.
+
+![Alt text](images/8.jpg)
 
 ### 5. Добавьте факты в `group_vars` каждой из групп хостов так, чтобы для `some_fact` получились значения: для `deb` — `deb default fact`, для `el` — `el default fact`.
 ### 6.  Повторите запуск playbook на окружении `prod.yml`. Убедитесь, что выдаются корректные значения для всех хостов.
