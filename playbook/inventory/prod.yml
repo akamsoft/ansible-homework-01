@@ -16,6 +16,6 @@
         ansible_python_interpreter: /usr/bin/python3
   fedora:
     hosts:
-      fedora:
+      fedora-01:
         ansible_connection: docker
         ansible_python_interpreter: /usr/bin/python3

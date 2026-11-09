@@ -11,6 +11,6 @@ services:
     command: "sleep infinity"
   fedora:
     image: geerlingguy/docker-fedora39-ansible:latest
-    container_name: fedora
+    container_name: fedora-01
     restart: unless-stopped
     command: "sleep infinity"
