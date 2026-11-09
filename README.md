@@ -2,23 +2,23 @@
 
 ## Подготовка к выполнению
 
-1. Установите Ansible версии 2.10 или выше.
+### 1. Установите Ansible версии 2.10 или выше.
 
 ![Alt text](images/1.jpg)
   
-3. Создайте свой публичный репозиторий на GitHub с произвольным именем. 
+### 3. Создайте свой публичный репозиторий на GitHub с произвольным именем. 
 
 Создан **публичный** репозиторий: `https://github.com/akamsoft/ansible-homework-01`.
 
-4. Скачайте [Playbook](./playbook/) из репозитория с домашним заданием и перенесите его в свой репозиторий.
+### 4. Скачайте [Playbook](./playbook/) из репозитория с домашним заданием и перенесите его в свой репозиторий.
 
 Playbook из [`netology-code/mnt-homeworks/08-ansible-01-base/playbook`](https://github.com/netology-code/mnt-homeworks/tree/MNT-video/08-ansible-01-base/playbook) скопирован в папку `playbook/` репозитория.
 
 ## Основная часть
 
-1. Попробуйте запустить playbook на окружении из `test.yml`, зафиксируйте значение, которое имеет факт `some_fact` для указанного хоста при выполнении playbook.
+### 1. Попробуйте запустить playbook на окружении из `test.yml`, зафиксируйте значение, которое имеет факт `some_fact` для указанного хоста при выполнении playbook.
 
-### Пункт 1. Запуск playbook на `test.yml`
+#### Пункт 1. Запуск playbook на `test.yml`
 
 Инвентарь `playbook/inventory/test.yml`:
 
