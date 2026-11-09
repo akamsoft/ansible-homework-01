@@ -18,15 +18,40 @@ Playbook из [`netology-code/mnt-homeworks/08-ansible-01-base/playbook`](https:
 
 1. Попробуйте запустить playbook на окружении из `test.yml`, зафиксируйте значение, которое имеет факт `some_fact` для указанного хоста при выполнении playbook.
 
-Чтобы не было WARNING:
+### Пункт 1. Запуск playbook на `test.yml`
 
-![Alt text](images/1.jpg)
+Инвентарь `playbook/inventory/test.yml`:
 
-Заменил в файле site.yml msg: "{{ ansible_distribution }}" на msg: "{{ ansible_fact.distribution }}", теперь playbook запускается без предупреждений и ошибок:
+```yaml
+---
+  inside:
+    hosts:
+      localhost:
+        ansible_connection: local
+        ansible_python_interpreter: /usr/bin/python3
+```
+
+Команда:
+
+```bash
+cd playbook
+ansible-playbook -i inventory/test.yml site.yml
+```
+
+Вывод задачи `Print fact`:
+
+```
+TASK [Print fact] ***
+ok: [localhost] => {
+    "msg": 12
+}
+```
+
+**Зафиксированное значение `some_fact` для хоста `localhost`: `12`.**
+
+Значение задаётся в `playbook/group_vars/all/examp.yml`. Переменные из `group_vars/el` и `group_vars/deb` к хосту не применяются, так как в `test.yml` хост входит только в группу `inside` (и неявно `all`).
 
 ![Alt text](images/2.jpg)
-
-Зафиксировал значение: 12
 
 2. Найдите файл с переменными (group_vars), в котором задаётся найденное в первом пункте значение, и поменяйте его на `all default fact`.
 
