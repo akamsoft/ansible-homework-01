@@ -6,8 +6,10 @@
 
 ![Alt text](images/1.jpg)
   
-3. Создайте свой публичный репозиторий на GitHub с произвольным именем.
+3. Создайте свой публичный репозиторий на GitHub с произвольным именем. 
+Создан **публичный** репозиторий: `https://github.com/akamsoft/ansible-homework-01`.
 4. Скачайте [Playbook](./playbook/) из репозитория с домашним заданием и перенесите его в свой репозиторий.
+Playbook из [`netology-code/mnt-homeworks/08-ansible-01-base/playbook`](https://github.com/netology-code/mnt-homeworks/tree/MNT-video/08-ansible-01-base/playbook) скопирован в папку `playbook/` репозитория.
 
 ## Основная часть
 
