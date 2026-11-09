@@ -4,7 +4,20 @@
 
 ## Подготовка к выполнению
 
-1. **Ansible** установлен в виртуальное окружение `~/ansible-venv`. Версия — `ansible-core 2.19.x` (требование — 2.10+).
+1. **Ansible** установлен из репозитория Debian 13 командой:
+
+   ```bash
+   sudo apt update
+   sudo apt install ansible -y
+   ```
+
+   Проверка версии:
+
+   ```bash
+   ansible --version
+   ```
+
+   Установленная версия `ansible-core` соответствует требованию (2.10+); фактический вывод — на скриншоте.
 
    ![Версия Ansible](images/version.jpg)
 
@@ -73,7 +86,7 @@ ok: [localhost] => {
 
 ### Пункт 3. Docker-окружение
 
-Для испытаний подготовлены Docker-контейнеры. Поскольку CentOS 7 — EOL, использован собственный образ с Python 3.8 (совместим с Ansible 2.19); `ubuntu` — из готового образа `geerlingguy/docker-ubuntu2004-ansible`.
+Для испытаний подготовлены Docker-контейнеры. Поскольку CentOS 7 — EOL, использован собственный образ с Python 3.8 (совместим с Ansible из Debian 13); `ubuntu` — из готового образа `geerlingguy/docker-ubuntu2004-ansible`.
 
 `Dockerfile.centos7`:
 
