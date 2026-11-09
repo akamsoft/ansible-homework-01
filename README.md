@@ -336,6 +336,22 @@ ansible-playbook -i inventory/prod.yml site.yml --ask-vault-pass
 ![Alt text](images/28.jpg)
 
 ### 5. Напишите скрипт на bash: автоматизируйте поднятие необходимых контейнеров, запуск ansible-playbook и остановку контейнеров.
+
+Скрипт `run_homework.sh` — поднимает контейнеры, запускает playbook, гарантированно останавливает контейнеры через `trap`:
+
+![Alt text](images/29.jpg)
+
+Запуск:
+
+```bash
+chmod +x run_homework.sh
+./run_homework.sh
+```
+
+На приглашении `Vault password:` вводится `netology`. В конце скрипт останавливает и удаляет контейнеры (даже если playbook завершился с ошибкой — благодаря `trap cleanup EXIT`).
+
+![Alt text](images/30.jpg)
+
 ### 6. Все изменения должны быть зафиксированы и отправлены в ваш личный репозиторий.
 
 ---
