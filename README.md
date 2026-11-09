@@ -212,11 +212,17 @@ Ansible запрашивает пароль. После ввода `netology` з
 
 ### 9. Посмотрите при помощи `ansible-doc` список плагинов для подключения. Выберите подходящий для работы на `control node`.
 
-```
-ansible-doc set_fact
+```bash
+ansible-doc -t connection --list
 ```
 
-![Alt text](images/10.jpg)
+Список включает `ansible.builtin.local` (описание: `execute on controller`).
+
+**Для работы на control node выбран `ansible.builtin.local`** — он выполняет задачи непосредственно на управляющей машине без сетевого подключения. Именно он используется в `inventory/test.yml` и группе `local` в `inventory/prod.yml`.
+
+![Alt text](images/16.jpg)
+
+![Alt text](images/17.jpg)
 
 ### 10. В `prod.yml` добавьте новую группу хостов с именем  `local`, в ней разместите localhost с необходимым типом подключения.
 
